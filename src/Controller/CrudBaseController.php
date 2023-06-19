@@ -86,7 +86,10 @@ class CrudBaseController extends BaseController
 
             $this->middleware('permission:alter-' . $this->model::permissionSlug)
                 ->only(['store', 'update', 'changeStatus', 'changeStatusOtherColumn', 'restore']);
-
+            $this->middleware('permission:create-' . $this->model::permissionSlug)
+                ->only(['store']);
+            $this->middleware('permission:update-' . $this->model::permissionSlug)
+                ->only(['update', 'changeStatus', 'changeStatusOtherColumn', 'restore']);
             $this->middleware('permission:delete-' . $this->model::permissionSlug)
                 ->only(['delete']);
         }
