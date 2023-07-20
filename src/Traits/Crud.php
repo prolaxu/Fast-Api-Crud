@@ -1,6 +1,7 @@
 <?php
 
 namespace Anil\FastApiCrud\Traits;
+use Illuminate\Support\Str;
 
 trait Crud
 {
