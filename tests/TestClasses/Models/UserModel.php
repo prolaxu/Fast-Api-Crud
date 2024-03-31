@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class UserModel extends Model
 {
-
     use HasFactory;
 
     protected $table = 'users';
@@ -24,6 +23,7 @@ class UserModel extends Model
         return $this->hasMany(
             related: PostModel::class,
             foreignKey:  'user_id',
-            localKey:  'id');
+            localKey:  'id'
+        );
     }
 }
