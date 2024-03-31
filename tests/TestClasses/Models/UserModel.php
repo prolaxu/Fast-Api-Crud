@@ -16,11 +16,14 @@ class UserModel extends Model
     protected $fillable = [
         'name',
         'email',
-        'password'
+        'password',
     ];
 
     public function posts(): HasMany
     {
-        return $this->hasMany(related: PostModel::class,foreignKey:  'user_id',localKey:  'id');
+        return $this->hasMany(
+            related: PostModel::class,
+            foreignKey:  'user_id',
+            localKey:  'id');
     }
 }

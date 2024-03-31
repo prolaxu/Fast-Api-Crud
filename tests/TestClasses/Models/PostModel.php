@@ -16,7 +16,7 @@ class PostModel extends Model
     protected $fillable = [
         'name',
         'description',
-        'user_id'
+        'user_id',
     ];
 
     public function user(): BelongsTo

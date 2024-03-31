@@ -11,7 +11,6 @@ use Exception;
 
 class UserController extends CrudBaseController
 {
-
     /**
      * @throws Exception
      */

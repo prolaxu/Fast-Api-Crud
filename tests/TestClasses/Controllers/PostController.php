@@ -11,7 +11,6 @@ use Exception;
 
 class PostController extends CrudBaseController
 {
-
     /**
      * @throws Exception
      */

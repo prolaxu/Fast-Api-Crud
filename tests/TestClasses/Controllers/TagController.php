@@ -11,7 +11,6 @@ use Exception;
 
 class TagController extends CrudBaseController
 {
-
     /**
      * @throws Exception
      */
