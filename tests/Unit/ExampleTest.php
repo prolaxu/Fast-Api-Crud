@@ -1,6 +1,6 @@
 <?php
 
-describe('ExampleTest', function () {
+describe(description: 'ExampleTest',tests: function () {
     it('example', function () {
         expect(true)->toBeTrue();
     });
