@@ -5,6 +5,7 @@ namespace Anil\FastApiCrud\Tests;
 use Anil\FastApiCrud\Providers\ApiCrudServiceProvider;
 use Anil\FastApiCrud\Tests\TestClasses\Controllers\PostController;
 use Anil\FastApiCrud\Tests\TestClasses\Controllers\TagController;
+use Anil\FastApiCrud\Tests\TestClasses\Controllers\UserController;
 use Anil\FastApiCrud\Tests\TestClasses\Models\PostModel;
 use Anil\FastApiCrud\Tests\TestClasses\Models\TagModel;
 use Anil\FastApiCrud\Tests\TestClasses\Models\UserModel;
@@ -59,7 +60,7 @@ abstract class TestCase extends OrchestraTestCase
         });
     }
 
-    protected function getPackageProviders($app): array
+    protected function getPackageProviders(Application $app): array
     {
         return [
             ApiCrudServiceProvider::class,
@@ -77,5 +78,6 @@ abstract class TestCase extends OrchestraTestCase
     {
         $router->apiResource('posts', PostController::class);
         $router->apiResource('tags', TagController::class);
+        $router->apiResource('users', UserController::class);
     }
 }
