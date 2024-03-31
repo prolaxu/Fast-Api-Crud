@@ -14,12 +14,12 @@
   ],
   "type": "library",
   "require": {
-    "illuminate/auth": "^7.0|^8.0|^9.0|^10.0|^11.0",
-    "illuminate/database": "^7.0|^8.0|^9.0|^10.0|^11.0",
-    "illuminate/http": "^7.0|^8.0|^9.0|^10.0|^11.0",
-    "illuminate/pagination": "^7.0|^8.0|^9.0|^10.0|^11.0",
-    "illuminate/routing": "^7.0|^8.0|^9.0|^10.0|^11.0",
-    "illuminate/support": "^7.0|^8.0|^9.0|^10.0|^11.0",
+    "illuminate/auth": "^8.0||^9.0||^10.0||^11.0",
+    "illuminate/database": "^8.0||^9.0||^10.0||^11.0",
+    "illuminate/http": "^8.0||^9.0||^10.0||^11.0",
+    "illuminate/pagination": "^8.0||^9.0||^10.0||^11.0",
+    "illuminate/routing": "^8.0||^9.0||^10.0||^11.0",
+    "illuminate/support": "^8.0||^9.0||^10.0||^11.0",
     "spatie/laravel-permission": "6.*|5.*|4.*"
   },
   "license": "MIT",
@@ -30,6 +30,11 @@
     "files": [
       "src/Helpers/fastApiCrud.php"
     ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Anil\\FastApiCrud\\Tests\\": "tests/"
+    }
   },
   "authors": [
     {
@@ -46,11 +51,16 @@
   },
   "config": {
     "optimize-autoloader": true,
-    "sort-packages": true
+    "sort-packages": true,
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
   },
   "minimum-stability": "stable",
   "prefer-stable": true,
   "require-dev": {
-    "laravel/pint": "^1.13"
+    "laravel/pint": "^1.13",
+    "orchestra/testbench": "^9.0",
+    "pestphp/pest": "^2.34"
   }
 }

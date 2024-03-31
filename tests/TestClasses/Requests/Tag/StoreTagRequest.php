@@ -4,7 +4,7 @@ namespace Anil\FastApiCrud\Tests\TestClasses\Requests\Tag;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePostRequest extends FormRequest
+class StoreTagRequest extends FormRequest
 {
     public function rules(): array
     {

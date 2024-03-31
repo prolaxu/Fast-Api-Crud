@@ -1,10 +1,10 @@
 <?php
 
-namespace Anil\FastApiCrud\Tests\TestClasses\Requests\Post;
+namespace Anil\FastApiCrud\Tests\TestClasses\Requests\Tag;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatePostRequest extends FormRequest
+class UpdateTagRequest extends FormRequest
 {
     public function rules(): array
     {
