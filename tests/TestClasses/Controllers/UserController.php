@@ -1,0 +1,27 @@
+<?php
+
+namespace Anil\FastApiCrud\Tests\TestClasses\Controllers;
+
+use Anil\FastApiCrud\Controller\CrudBaseController;
+use Anil\FastApiCrud\Tests\TestClasses\Models\PostModel;
+use Anil\FastApiCrud\Tests\TestClasses\Requests\StorePostRequest;
+use Anil\FastApiCrud\Tests\TestClasses\Requests\UpdatePostRequest;
+use Anil\FastApiCrud\Tests\TestClasses\Resources\PostResource;
+use Exception;
+
+class UserController extends CrudBaseController
+{
+
+    /**
+     * @throws Exception
+     */
+    public function __construct()
+    {
+        parent::__construct(
+            model: PostModel::class,
+            storeRequest: StorePostRequest::class,
+            updateRequest: UpdatePostRequest::class,
+            resource: PostResource::class
+        );
+    }
+}
