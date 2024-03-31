@@ -55,8 +55,6 @@ abstract class TestCase extends OrchestraTestCase
             $table->foreignIdFor(PostModel::class, 'post_id')->constrained('posts')->cascadeOnDelete();
             $table->foreignIdFor(TagModel::class, 'tag_id')->constrained('tags')->cascadeOnDelete();
         });
-
-
     }
 
     protected function getPackageProviders($app): array
