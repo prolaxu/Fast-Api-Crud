@@ -20,7 +20,7 @@ abstract class TestCase extends OrchestraTestCase
         parent::setUp();
         $this->setUpDatabase($this->app);
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Anil\FastApiCrud\\Database\\Factories\\' .class_basename($modelName).'Factory'
+            fn (string $modelName) => 'Anil\FastApiCrud\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 
