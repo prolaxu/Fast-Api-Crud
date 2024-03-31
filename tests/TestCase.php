@@ -68,7 +68,6 @@ abstract class TestCase extends OrchestraTestCase
 
     /**
      * Define routes setup.
-     *
      * @param Router $router
      * @return void
      */
@@ -77,6 +76,4 @@ abstract class TestCase extends OrchestraTestCase
         $router->apiResource('posts', PostController::class);
         $router->apiResource('tags', TagController::class);
     }
-
-
 }
