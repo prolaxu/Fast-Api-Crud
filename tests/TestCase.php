@@ -60,7 +60,7 @@ abstract class TestCase extends OrchestraTestCase
         });
     }
 
-    protected function getPackageProviders(Application $app): array
+    protected function getPackageProviders($app): array
     {
         return [
             ApiCrudServiceProvider::class,
@@ -74,7 +74,7 @@ abstract class TestCase extends OrchestraTestCase
      *
      * @return void
      */
-    protected function defineRoutes(Router $router): void
+    protected function defineRoutes($router): void
     {
         $router->apiResource('posts', PostController::class);
         $router->apiResource('tags', TagController::class);
