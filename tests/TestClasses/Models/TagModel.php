@@ -29,11 +29,10 @@ class TagModel extends Model
 
     public function afterCreateProcess(): void
     {
-        $request= request();
+        $request = request();
+
         if ($request->filled('post_ids')) {
             $this->posts()->sync($request->input('post_ids'));
         }
-
-
     }
 }

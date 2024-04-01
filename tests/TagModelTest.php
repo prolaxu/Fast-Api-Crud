@@ -89,7 +89,7 @@ describe(description: 'test_tag_controller', tests: function () {
 
     it(description: 'can_get_a_tag', closure: function () {
         $tag = TagModel::factory()->create();
-        $response = $this->get(uri: 'tags/' . $tag->id);
+        $response = $this->get(uri: 'tags/'.$tag->id);
         $response->assertStatus(status: 200);
         $response->assertJson(['data' => ['name' => $tag->name]]);
     });
@@ -100,13 +100,12 @@ describe(description: 'test_tag_controller', tests: function () {
             'desc' => 'Post 1 Description',
         ]);
         $response = $this->post(uri: 'tags', data: [
-            'name' => 'tag1',
+            'name'     => 'tag1',
             'post_ids' => [$post->id],
         ]);
         $response->assertStatus(status: 201);
         $this->assertDatabaseHas(table: 'tags', data: ['name' => 'tag1']);
         $this->assertDatabaseHas(table: 'post_tag', data: ['tag_id' => 1, 'post_id' => 1]);
         $this->assertDatabaseHas(table: 'posts', data: ['name' => 'Post 1', 'desc' => 'Post 1 Description']);
-
     });
 });
