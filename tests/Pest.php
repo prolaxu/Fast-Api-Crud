@@ -11,8 +11,12 @@
 |
 */
 
+
 // uses(Tests\TestCase::class)->in('Feature');
 
+use Anil\FastApiCrud\Tests\TestCase;
+
+uses(TestCase::class)->in(__DIR__);
 /*
 |--------------------------------------------------------------------------
 | Expectations
