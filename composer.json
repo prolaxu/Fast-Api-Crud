@@ -28,6 +28,8 @@
       "Anil\\FastApiCrud\\": "src/",
       "Anil\\FastApiCrud\\Database\\Factories\\": "database/factories"
     },
+    protected $namespace = 'Anil\FastApiCrud\databse\factories';
+    protected $namespace = 'Anil\FastApiCrud\databse\factories';
     "files": [
       "src/Helpers/fastApiCrud.php"
     ]

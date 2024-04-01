@@ -9,6 +9,7 @@ class TagModelFactory extends Factory
 {
 
     protected $model = TagModel::class;
+    
 
     public function definition(): array
     {
