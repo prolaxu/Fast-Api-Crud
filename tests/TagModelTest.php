@@ -91,5 +91,4 @@ describe('test_tag_controller', function () {
         $response->assertStatus(200);
         $response->assertJson(['data' => ['name' => $tag->name]]);
     });
-
 });
