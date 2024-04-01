@@ -14,7 +14,7 @@ class PostModelFactory extends Factory
     {
         return [
             'name'        => $this->faker->name,
-            'description' => $this->faker->text,
+            'desc' => $this->faker->text,
             'user_id'     => UserModel::factory(),
         ];
     }

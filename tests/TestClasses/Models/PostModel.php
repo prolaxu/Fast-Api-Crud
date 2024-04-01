@@ -15,7 +15,7 @@ class PostModel extends Model
 
     protected $fillable = [
         'name',
-        'description',
+        'desc',
         'user_id',
     ];
 

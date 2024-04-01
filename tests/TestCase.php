@@ -44,7 +44,8 @@ abstract class TestCase extends OrchestraTestCase
         $app['db']->connection()->getSchemaBuilder()->create('posts', function (Blueprint $table) {
             $table->id();
             $table->string(column: 'name');
-            $table->string(column: 'description');
+            $table->string(column: 'desc');
+            $table->boolean('status')->default(true);
             $table->foreignIdFor(UserModel::class, 'user_id')->constrained('users')->cascadeOnDelete();
             $table->timestamps();
         });
@@ -52,6 +53,7 @@ abstract class TestCase extends OrchestraTestCase
         $app['db']->connection()->getSchemaBuilder()->create('tags', function (Blueprint $table) {
             $table->id();
             $table->string(column: 'name');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
 
