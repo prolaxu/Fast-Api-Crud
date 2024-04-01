@@ -3,13 +3,9 @@
 namespace Anil\FastApiCrud\Tests\TestClasses\Controllers;
 
 use Anil\FastApiCrud\Controller\CrudBaseController;
-use Anil\FastApiCrud\Tests\TestClasses\Models\PostModel;
 use Anil\FastApiCrud\Tests\TestClasses\Models\TagModel;
-use Anil\FastApiCrud\Tests\TestClasses\Requests\Post\StorePostRequest;
-use Anil\FastApiCrud\Tests\TestClasses\Requests\Post\UpdatePostRequest;
 use Anil\FastApiCrud\Tests\TestClasses\Requests\Tag\StoreTagRequest;
 use Anil\FastApiCrud\Tests\TestClasses\Requests\Tag\UpdateTagRequest;
-use Anil\FastApiCrud\Tests\TestClasses\Resources\PostResource;
 use Anil\FastApiCrud\Tests\TestClasses\Resources\TagResource;
 use Exception;
 

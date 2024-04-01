@@ -1,4 +1,5 @@
 <?php
+
 namespace Anil\FastApiCrud\Database\Factories;
 
 use Anil\FastApiCrud\Tests\TestClasses\Models\PostModel;
@@ -7,7 +8,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PostModelFactory extends Factory
 {
-    
     protected $model = PostModel::class;
 
     public function definition(): array
