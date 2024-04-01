@@ -34,7 +34,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Anil\\FastApiCrud\\Tests\\": "tests"
+      "Anil\\FastApiCrud\\Tests": "tests"
     }
   },
   "authors": [

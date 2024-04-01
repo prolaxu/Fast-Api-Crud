@@ -23,7 +23,9 @@ abstract class TestCase extends OrchestraTestCase
     protected function setUp(): void
     {
         parent::setUp();
+
         $this->setUpDatabase($this->app);
+
         Factory::guessFactoryNamesUsing(
             fn (string $modelName) => 'Anil\FastApiCrud\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
