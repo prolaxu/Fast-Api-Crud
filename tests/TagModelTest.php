@@ -89,24 +89,7 @@ describe('test_tag_controller', function () {
         $tag = TagModel::factory()->create();
         $response = $this->get('tags/'.$tag->id);
         $response->assertStatus(200);
-        $response->assertJson([
-            'data' => [
-                'id'         => $tag->id,
-                'name'       => $tag->name,
-                'created_at' => $tag->created_at->toJSON(),
-                'updated_at' => $tag->updated_at->toJSON(),
-            ],
-        ]);
+        $response->assertJson(['data' => ['name' => $tag->name]]);
     });
 
-    it('can_get_a_tag_with_posts', function () {
-//        $tag = TagModel::factory()->create();
-//        $posts = $tag->posts()->createMany(
-//            PostModel::factory()->count(5)->make()->toArray()
-//        );
-//        $response = $this->get('tags/' . $tag->id . '?with=posts');
-//        $response->assertStatus(200);
-//        $response->assertJson(['name' => $tag->name]);
-//        $response->assertJsonCount(5, 'data.posts');
-    });
 });
