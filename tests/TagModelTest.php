@@ -60,7 +60,7 @@ describe(description: 'test_tag_controller', tests: function () {
             ]
         );
 
-        $response = $this->put(uri: 'tags/' . $tag->id, data: [
+        $response = $this->put(uri: 'tags/'.$tag->id, data: [
             'name' => 'tag2',
         ]);
         $response->assertStatus(status: 200);
@@ -74,7 +74,7 @@ describe(description: 'test_tag_controller', tests: function () {
             ]
         );
 
-        $response = $this->delete(uri: 'tags/' . $tag->id);
+        $response = $this->delete(uri: 'tags/'.$tag->id);
         $response->assertOk();
         $response->assertJsonCount(count: 0, key: 'data');
         $this->assertDatabaseMissing('tags', ['name' => 'Tag 1']);
