@@ -1,5 +1,4 @@
 <?php
-
 namespace Anil\FastApiCrud\Database\Factories;
 
 use Anil\FastApiCrud\Tests\TestClasses\Models\PostModel;
