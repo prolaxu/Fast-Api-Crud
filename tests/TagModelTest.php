@@ -41,12 +41,9 @@ describe('testing_tag_model_data_seeding ', function () {
 
         $this->assertDatabaseMissing('tags', ['name' => 'Tag 1']);
     });
-
 });
 
-
 describe('test_tag_controller', function () {
-
     it('can_create_a_tag', function () {
         $response = $this->post('tags', [
             'name' => 'tag1',
@@ -62,7 +59,7 @@ describe('test_tag_controller', function () {
             ]
         );
 
-        $response = $this->put('tags/' . $tag->id, [
+        $response = $this->put('tags/'.$tag->id, [
             'name' => 'tag2',
         ]);
         $response->assertStatus(200);
@@ -76,7 +73,7 @@ describe('test_tag_controller', function () {
             ]
         );
 
-        $response = $this->delete('tags/' . $tag->id);
+        $response = $this->delete('tags/'.$tag->id);
         $response->assertStatus(204);
         $this->assertDatabaseMissing('tags', ['name' => 'Tag 1']);
     });
@@ -90,15 +87,15 @@ describe('test_tag_controller', function () {
 
     it('can_get_a_tag', function () {
         $tag = TagModel::factory()->create();
-        $response = $this->get('tags/' . $tag->id);
+        $response = $this->get('tags/'.$tag->id);
         $response->assertStatus(200);
         $response->assertJson([
             'data' => [
-                'id' => $tag->id,
-                'name' => $tag->name,
+                'id'         => $tag->id,
+                'name'       => $tag->name,
                 'created_at' => $tag->created_at->toJSON(),
                 'updated_at' => $tag->updated_at->toJSON(),
-            ]
+            ],
         ]);
     });
 
@@ -112,5 +109,4 @@ describe('test_tag_controller', function () {
 //        $response->assertJson(['name' => $tag->name]);
 //        $response->assertJsonCount(5, 'data.posts');
     });
-
 });
