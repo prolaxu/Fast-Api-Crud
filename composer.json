@@ -25,8 +25,9 @@
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "Anil\\FastApiCrud\\": "src/"
-     },
+      "Anil\\FastApiCrud\\": "src/",
+      "Anil\\FastApiCrud\\Database\\Factories\\": "database/factories"
+    },
     "files": [
       "src/Helpers/fastApiCrud.php"
     ]
