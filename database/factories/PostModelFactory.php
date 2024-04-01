@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PostModelFactory extends Factory
 {
+    
     protected $model = PostModel::class;
 
     public function definition(): array
