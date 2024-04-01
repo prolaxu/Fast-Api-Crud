@@ -1,5 +1,9 @@
 <?php
 
+use Anil\FastApiCrud\Tests\TestCase;
+use Illuminate\Support\Facades\DB;
+
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -10,11 +14,6 @@
 | need to change it using the "uses()" function to bind a different classes or traits.
 |
 */
-
-
-// uses(Tests\TestCase::class)->in('Feature');
-
-use Anil\FastApiCrud\Tests\TestCase;
 
 uses(TestCase::class)->in(__DIR__);
 /*
@@ -43,7 +42,12 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+
+function assertQueryExecuted(string $query)
 {
-    // ..
+    $queries = array_map(function ($queryLogItem) {
+        return $queryLogItem['query'];
+    }, DB::getQueryLog());
+
+    expect($queries)->toContain($query);
 }
