@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories;
+namespace Anil\FastApiCrud\Database\Factories;
 
 use Anil\FastApiCrud\Tests\TestClasses\Models\TagModel;
 use Illuminate\Database\Eloquent\Factories\Factory;

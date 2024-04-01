@@ -1,11 +1,13 @@
 <?php
 
-namespace Database\Factories;
+namespace Anil\FastApiCrud\Database\Factories;
 
+use Anil\FastApiCrud\Tests\TestClasses\Models\UserModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserModelFactory extends Factory
 {
+    protected $model = UserModel::class;
     public function definition(): array
     {
         return [
