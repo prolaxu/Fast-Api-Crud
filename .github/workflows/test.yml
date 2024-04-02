@@ -12,22 +12,38 @@ jobs:
 
     strategy:
       matrix:
+        php: [7.4, 8.0, 8.1, 8.2, 8.3]
+        laravel: [8.*, 9.*, 10.*, 11.*]
         include:
-          - laravel: '8.*'
-            php: ['7.3', '7.4', '8.0', '8.1']
-          - laravel: '9.*'
-            php: ['8.0', '8.1', '8.2']
-          - laravel: '10.*'
-            php: ['8.1', '8.2', '8.3']
-          - laravel: '11.*'
-            php: ['8.2', '8.3']
+          - laravel: 8.*
+            php: 7.4
+          - laravel: 8.*
+            php: 8.0
+          - laravel: 8.*
+            php: 8.1
+          - laravel: 9.*
+            php: 8.0
+          - laravel: 9.*
+            php: 8.1
+          - laravel: 9.*
+            php: 8.2
+          - laravel: 10.*
+            php: 8.1
+          - laravel: 10.*
+            php: 8.2
+          - laravel: 10.*
+            php: 8.3
+          - laravel: 11.*
+            php: 8.2
+          - laravel: 11.*
+            php: 8.3
     name: running L-${{ matrix.laravel }} on PHP-${{ matrix.php }}
 
     services:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_ROOT_USER: root
+          MYSQL_ROOT_USER: roo t
           MYSQL_ROOT_PASSWORD: admin
           MYSQL_DATABASE: fast_api_crud
         ports:
