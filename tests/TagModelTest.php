@@ -16,6 +16,8 @@ describe(description: 'testing_tag_model_data_seeding ', tests: function () {
 
         expect($tag->name)->toBe(expected: 'Tag 1');
         $this->assertDatabaseHas(table: 'tags', data: ['name' => 'Tag 1']);
+        expect($tag->posts)->toBeEmpty();
+        expect($tag->posts->count())->toBe(0);
     });
 
     it(description: 'can_update_a_tag', closure: function () {
