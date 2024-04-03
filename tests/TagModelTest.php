@@ -64,7 +64,6 @@ describe(description: 'testing_tag_model_data_seeding ', tests: function () {
             ->and($tag->active)
             ->toBe(expected: $inActive);
 
-
         $this->assertDatabaseHas('tags', [
             'name' => $inputName,
             'desc' => $inputDesc,
@@ -122,7 +121,7 @@ describe(description: 'test_tag_controller', tests: function () {
             ]
         );
 
-        $response = $this->putJson(uri: "tags/{$tag->id}", data: $data=[
+        $response = $this->putJson(uri: "tags/{$tag->id}", data: $data = [
             'name' => 'Tag 2',
             'desc' => 'Tag 2 Description',
             'status' => 0,
@@ -137,7 +136,7 @@ describe(description: 'test_tag_controller', tests: function () {
             'name' => 'Tag 1',
         ]);
 
-        $response=$this->deleteJson(uri: "tags/{$tag->id}");
+        $response = $this->deleteJson(uri: "tags/{$tag->id}");
         $response->assertOk();
         $response->assertJsonCount(count: 0, key: 'data');
         $this->assertDatabaseMissing('tags', ['name' => 'Tag 1']);
@@ -155,21 +154,21 @@ describe(description: 'test_tag_controller', tests: function () {
 
     it(description: 'can_get_a_tag', closure: function () {
         $tag = TagModel::factory()->create();
-        $response = $this->get(uri: 'tags/' . $tag->id);
+        $response = $this->get(uri: 'tags/'.$tag->id);
         $response->assertStatus(status: 200);
         $response->assertJson(['data' => ['name' => $tag->name]]);
     });
 
     it(description: 'can_post_a_tag_with_posts_ids', closure: function () {
         $postIds = PostModel::factory(2)->create()->modelKeys();
-        $tag=TagModel::factory()->raw([
+        $tag = TagModel::factory()->raw([
             'name' => 'tag1',
             'desc' => 'tag1 description',
             'status' => 1,
             'active' => 0,
         ]);
 
-        $response=$this->postJson(uri: 'tags', data: [
+        $response = $this->postJson(uri: 'tags', data: [
             ...$tag,
             'post_ids' => $postIds,
         ]);
