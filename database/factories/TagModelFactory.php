@@ -13,6 +13,9 @@ class TagModelFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->name,
+            'desc' => $this->faker->sentence,
+            'status'      => $this->faker->boolean(),
+            'active'      => $this->faker->boolean,
         ];
     }
 }

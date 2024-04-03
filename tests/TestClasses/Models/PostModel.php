@@ -17,6 +17,8 @@ class PostModel extends Model
         'name',
         'desc',
         'user_id',
+        'status',
+        'active',
     ];
 
     public function user(): BelongsTo

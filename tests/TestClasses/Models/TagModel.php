@@ -13,6 +13,9 @@ class TagModel extends Model
 
     protected $fillable = [
         'name',
+        'desc',
+        'status',
+        'active',
     ];
 
     public function posts(): BelongsToMany

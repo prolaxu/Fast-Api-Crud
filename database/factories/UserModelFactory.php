@@ -15,6 +15,8 @@ class UserModelFactory extends Factory
             'name'     => $this->faker->name,
             'email'    => $this->faker->unique()->safeEmail(),
             'password' => $this->faker->password,
+            'status'      => $this->faker->boolean,
+            'active'      => $this->faker->boolean,
 
         ];
     }

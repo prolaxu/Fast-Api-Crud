@@ -16,6 +16,8 @@ class PostModelFactory extends Factory
             'name'        => $this->faker->name,
             'desc'        => $this->faker->text,
             'user_id'     => UserModel::factory(),
+            'status'      => $this->faker->boolean,
+            'active'      => $this->faker->boolean,
         ];
     }
 }

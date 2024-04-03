@@ -16,6 +16,8 @@ class UserModel extends Model
         'name',
         'email',
         'password',
+        'status',
+        'active',
     ];
 
     public function posts(): HasMany

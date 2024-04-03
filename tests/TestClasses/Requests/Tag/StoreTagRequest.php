@@ -13,6 +13,21 @@ class StoreTagRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
+                'unique:tags,name',
+            ],
+            'desc' => [
+                'required',
+                'string',
+                'max:25500',
+            
+            ],
+            'status' => [
+                'required',
+                'boolean',
+            ],
+            'active' => [
+                'required',
+                'boolean',
             ],
         ];
     }
