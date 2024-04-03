@@ -3,6 +3,7 @@
 namespace Anil\FastApiCrud\Commands;
 
 use Illuminate\Console\GeneratorCommand;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 class MakeService extends GeneratorCommand
 {
@@ -77,6 +78,9 @@ class MakeService extends GeneratorCommand
         $this->info($message.' created successfully.');
     }
 
+    /**
+     * @throws FileNotFoundException
+     */
     public function buildServiceClass(string $name, $hasInterface): string
     {
         $stub = $this->files->get(
