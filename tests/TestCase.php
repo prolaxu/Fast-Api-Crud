@@ -23,9 +23,7 @@ abstract class TestCase extends OrchestraTestCase
     protected function setUp(): void
     {
         parent::setUp();
-
         $this->setUpDatabase($this->app);
-
         Factory::guessFactoryNamesUsing(
             fn (string $modelName) => 'Anil\FastApiCrud\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
@@ -58,7 +56,6 @@ abstract class TestCase extends OrchestraTestCase
 
     protected function tagMigration(Application $app)
     {
-
         $app['db']->connection()
             ->getSchemaBuilder()
             ->create('tags', function (Blueprint $table) {
@@ -76,7 +73,6 @@ abstract class TestCase extends OrchestraTestCase
 
     protected function postMigration(Application $app)
     {
-
         $app['db']->connection()
             ->getSchemaBuilder()
             ->create('posts', function (Blueprint $table) {
@@ -93,7 +89,6 @@ abstract class TestCase extends OrchestraTestCase
                 $table->timestamps();
                 $table->softDeletes();
             });
-
         $app['db']->connection()
             ->getSchemaBuilder()
             ->create('post_tag', function (Blueprint $table) {
@@ -117,13 +112,12 @@ abstract class TestCase extends OrchestraTestCase
     /**
      * Define routes setup.
      *
-     * @param  Router  $router
+     * @param Router $router
      *
      * @return void
      */
     protected function defineRoutes($router): void
     {
-
         $this->postRoutes($router);
         $this->tagRoutes($router);
         $this->userRoutes($router);
@@ -131,7 +125,6 @@ abstract class TestCase extends OrchestraTestCase
 
     private function postRoutes($router)
     {
-
         $router->get('posts', [PostController::class, 'index'])
             ->name('posts.index');
         $router->post('posts', [PostController::class, 'store'])
@@ -158,7 +151,6 @@ abstract class TestCase extends OrchestraTestCase
 
     private function tagRoutes($router)
     {
-
         $router->get('tags', [TagController::class, 'index'])
             ->name('tags.index');
         $router->post('tags', [TagController::class, 'store'])
