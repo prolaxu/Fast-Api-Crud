@@ -24,12 +24,14 @@ describe(description: 'testing_tag_model_data_seeding ', tests: function () {
             ->toBe(expected: $active)
             ->and($tag->active)
             ->toBe(expected: $inActive);
+
         $this->assertDatabaseHas(table: 'tags', data: [
             'name'   => $inputName,
             'desc'   => $inputDesc,
             'status' => $active,
             'active' => $inActive,
         ]);
+
         expect($tag->posts)
             ->toBeEmpty()
             ->and($tag->posts()
