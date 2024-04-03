@@ -33,7 +33,6 @@ abstract class TestCase extends OrchestraTestCase
 
     protected function setUpDatabase(Application $app): void
     {
-
         $this->userMigration($app);
         $this->tagMigration($app);
         $this->postMigration($app);
@@ -41,7 +40,6 @@ abstract class TestCase extends OrchestraTestCase
 
     protected function userMigration(Application $app)
     {
-
         $app['db']->connection()
             ->getSchemaBuilder()
             ->create('users', function (Blueprint $table) {
