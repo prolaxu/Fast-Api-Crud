@@ -90,6 +90,9 @@ class MakeService extends GeneratorCommand
         return $this->replaceNamespace($stub, $name)->replaceClass($stub, $name);
     }
 
+    /**
+     * @throws FileNotFoundException
+     */
     public function buildServiceInterface(string $name): string
     {
         $stub = $this->files->get($this->getInterfaceStub());
