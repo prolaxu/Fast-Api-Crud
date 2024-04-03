@@ -60,7 +60,6 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "require-dev": {
-    "larastan/larastan": "^1.0||^2.9",
     "laravel/pint": "^1.0",
     "orchestra/testbench": "^7.0||^8.0||^9.0",
     "pestphp/pest": "^1.0||^2.34"
