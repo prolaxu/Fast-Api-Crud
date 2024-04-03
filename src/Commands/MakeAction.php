@@ -15,6 +15,7 @@ class MakeAction extends GeneratorCommand
     {
         if ($this->isReservedName($this->getNameInput())) {
             $this->error('The name "'.$this->getNameInput().'" is reserved by PHP.');
+
             return false;
         }
         $name = $this->qualifyClass($this->getNameInput());
@@ -23,6 +24,7 @@ class MakeAction extends GeneratorCommand
                 !$this->option('force')) &&
             $this->alreadyExists($this->getNameInput())) {
             $this->error($this->type.' already exists!');
+
             return false;
         }
         $this->makeDirectory($path);
@@ -34,12 +36,14 @@ class MakeAction extends GeneratorCommand
         );
         $message = $this->type;
         $this->info($message.' created successfully.');
+
         return true;
     }
 
     protected function buildServiceClass(string $name): string
     {
         $stub = $this->files->get($this->getStub());
+
         return $this->replaceNamespace($stub, $name)->replaceClass($stub, $name);
     }
 
