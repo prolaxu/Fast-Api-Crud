@@ -5,7 +5,6 @@ use Anil\FastApiCrud\Tests\TestClasses\Models\TagModel;
 
 beforeEach(function () {
 });
-
 describe(description: 'testing_tag_model_data_seeding ', tests: function () {
     it(description: 'can_create_a_tag_using_factory', closure: function () {
         $tag = TagModel::factory()
@@ -17,7 +16,6 @@ describe(description: 'testing_tag_model_data_seeding ', tests: function () {
                     'active' => $inActive = false,
                 ],
             );
-
         expect($tag->name)
             ->toBe(expected: $inputName)
             ->and($tag->desc)
@@ -26,7 +24,6 @@ describe(description: 'testing_tag_model_data_seeding ', tests: function () {
             ->toBe(expected: $active)
             ->and($tag->active)
             ->toBe(expected: $inActive);
-
         $this->assertDatabaseHas(table: 'tags', data: [
             'name'   => $inputName,
             'desc'   => $inputDesc,
@@ -39,7 +36,6 @@ describe(description: 'testing_tag_model_data_seeding ', tests: function () {
                 ->count())
             ->toBe(0);
     });
-
     it(description: 'can_update_a_tag_using_factory', closure: function () {
         $tag = TagModel::factory()
             ->create(
@@ -50,7 +46,6 @@ describe(description: 'testing_tag_model_data_seeding ', tests: function () {
                     'active' => 0,
                 ],
             );
-
         $tag->update(
             [
                 'name'   => $inputName = 'Tag 2',
@@ -59,7 +54,6 @@ describe(description: 'testing_tag_model_data_seeding ', tests: function () {
                 'active' => $inActive = 1,
             ],
         );
-
         expect($tag->name)
             ->toBe(expected: $inputName)
             ->and($tag->desc)
@@ -68,7 +62,6 @@ describe(description: 'testing_tag_model_data_seeding ', tests: function () {
             ->toBe(expected: $active)
             ->and($tag->active)
             ->toBe(expected: $inActive);
-
         $this->assertDatabaseHas('tags', [
             'name'   => $inputName,
             'desc'   => $inputDesc,
@@ -76,7 +69,6 @@ describe(description: 'testing_tag_model_data_seeding ', tests: function () {
             'active' => $inActive,
         ]);
     });
-
     it(description: 'can_delete_a_tag_using_factory', closure: function () {
         $tag = TagModel::factory()
             ->create(
@@ -87,9 +79,7 @@ describe(description: 'testing_tag_model_data_seeding ', tests: function () {
                     'active' => $inActive = false,
                 ]
             );
-
         $tag->delete();
-
         $this->assertDatabaseMissing('tags', [
             'name'   => $inputName,
             'desc'   => $inputDesc,
@@ -98,7 +88,6 @@ describe(description: 'testing_tag_model_data_seeding ', tests: function () {
         ]);
     });
 });
-
 describe(description: 'test_tag_controller', tests: function () {
     it(description: 'can_create_a_tag_in_api', closure: function () {
         $tag = TagModel::factory()
@@ -116,7 +105,6 @@ describe(description: 'test_tag_controller', tests: function () {
             'active' => 0,
         ]);
     });
-
     it(description: 'can_update_a_tag', closure: function () {
         $tag = TagModel::factory()
             ->create(
@@ -127,7 +115,6 @@ describe(description: 'test_tag_controller', tests: function () {
                     'active' => 0,
                 ]
             );
-
         $response = $this->putJson(uri: "tags/{$tag->id}", data: $data = [
             'name'   => 'Tag 2',
             'desc'   => 'Tag 2 Description',
@@ -137,13 +124,11 @@ describe(description: 'test_tag_controller', tests: function () {
         $response->assertStatus(status: 200);
         $this->assertDatabaseHas('tags', $data);
     });
-
     it(description: 'can_delete_a_tag', closure: function () {
         $tag = TagModel::factory()
             ->create([
                 'name' => 'Tag 1',
             ]);
-
         $response = $this->deleteJson(uri: "tags/{$tag->id}");
         $response->assertOk();
         $response->assertJsonCount(count: 0, key: 'data');
@@ -152,7 +137,6 @@ describe(description: 'test_tag_controller', tests: function () {
         $this->assertSame(0, TagModel::query()
             ->count());
     });
-
     it(description: 'can_get_all_tags', closure: function () {
         $tags = TagModel::factory()
             ->count(count: 5)
@@ -161,7 +145,6 @@ describe(description: 'test_tag_controller', tests: function () {
         $response->assertStatus(status: 200);
         $response->assertJsonCount(5, 'data');
     });
-
     it(description: 'can_get_a_tag', closure: function () {
         $tag = TagModel::factory()
             ->create();
@@ -169,7 +152,6 @@ describe(description: 'test_tag_controller', tests: function () {
         $response->assertStatus(status: 200);
         $response->assertJson(['data' => ['name' => $tag->name]]);
     });
-
     it(description: 'can_post_a_tag_with_posts_ids', closure: function () {
         $postIds = PostModel::factory(2)
             ->create()
@@ -181,14 +163,11 @@ describe(description: 'test_tag_controller', tests: function () {
                 'status' => 1,
                 'active' => 0,
             ]);
-
         $response = $this->postJson(uri: 'tags', data: [
             ...$tag,
             'post_ids' => $postIds,
         ]);
-
         $response->assertStatus(status: 201);
-
         $this->assertDatabaseHas(table: 'tags', data: $tag);
         $this->assertDatabaseHas(table: 'post_tag', data: ['tag_id' => 1, 'post_id' => 1]);
         $this->assertDatabaseHas(table: 'post_tag', data: ['tag_id' => 1, 'post_id' => 2]);
