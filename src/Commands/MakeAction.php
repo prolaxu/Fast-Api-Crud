@@ -3,6 +3,7 @@
 namespace Anil\FastApiCrud\Commands;
 
 use Illuminate\Console\GeneratorCommand;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 class MakeAction extends GeneratorCommand
 {
@@ -11,7 +12,7 @@ class MakeAction extends GeneratorCommand
     protected $description = 'Create a new action class';
     protected $type = 'Action';
 
-    public function handle()
+    public function handle(): bool
     {
         if ($this->isReservedName($this->getNameInput())) {
             $this->error('The name "'.$this->getNameInput().'" is reserved by PHP.');
@@ -20,9 +21,7 @@ class MakeAction extends GeneratorCommand
         }
         $name = $this->qualifyClass($this->getNameInput());
         $path = $this->getPath($name);
-        if ((!$this->hasOption('force') ||
-                !$this->option('force')) &&
-            $this->alreadyExists($this->getNameInput())) {
+        if (!$this->hasOption('force') && $this->alreadyExists($this->getNameInput())) {
             $this->error($this->type.' already exists!');
 
             return false;
@@ -40,6 +39,9 @@ class MakeAction extends GeneratorCommand
         return true;
     }
 
+    /**
+     * @throws FileNotFoundException
+     */
     protected function buildServiceClass(string $name): string
     {
         $stub = $this->files->get($this->getStub());
