@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class TagModel extends Model
 {
     use HasFactory;
+
     protected $table = 'tags';
 
     protected $fillable = [

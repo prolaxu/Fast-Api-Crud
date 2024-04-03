@@ -13,7 +13,7 @@ class UpdateTagRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                'unique:tags,name,' . $this->route()->parameter('id'),
+                'unique:tags,name,'.$this->route()->parameter('id'),
             ],
             'desc' => [
                 'required',

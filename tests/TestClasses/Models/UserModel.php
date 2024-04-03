@@ -24,8 +24,8 @@ class UserModel extends Model
     {
         return $this->hasMany(
             related: PostModel::class,
-            foreignKey:  'user_id',
-            localKey:  'id'
+            foreignKey: 'user_id',
+            localKey: 'id'
         );
     }
 }

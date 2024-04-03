@@ -19,7 +19,7 @@ class StoreTagRequest extends FormRequest
                 'required',
                 'string',
                 'max:25500',
-            
+
             ],
             'status' => [
                 'required',
