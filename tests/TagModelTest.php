@@ -11,14 +11,10 @@ describe(description: 'testing_tag_model_data_seeding ', tests: function () {
         $tag = TagModel::factory()
             ->create(
                 [
-                    'name'   =>
-                        $inputName = 'Tag 1',
-                    'desc'   =>
-                        $inputDesc = 'Tag 1 Description',
-                    'status' =>
-                        $active = true,
-                    'active' =>
-                        $inActive = false,
+                    'name'   => $inputName = 'Tag 1',
+                    'desc'   => $inputDesc = 'Tag 1 Description',
+                    'status' => $active = true,
+                    'active' => $inActive = false,
                 ],
             );
 
@@ -57,14 +53,10 @@ describe(description: 'testing_tag_model_data_seeding ', tests: function () {
 
         $tag->update(
             [
-                'name'   =>
-                    $inputName = 'Tag 2',
-                'desc'   =>
-                    $inputDesc = 'Tag 2 Description',
-                'status' =>
-                    $active = 0,
-                'active' =>
-                    $inActive = 1,
+                'name'   => $inputName = 'Tag 2',
+                'desc'   => $inputDesc = 'Tag 2 Description',
+                'status' => $active = 0,
+                'active' => $inActive = 1,
             ],
         );
 
@@ -89,14 +81,10 @@ describe(description: 'testing_tag_model_data_seeding ', tests: function () {
         $tag = TagModel::factory()
             ->create(
                 [
-                    'name'   =>
-                        $inputName = 'Tag 1',
-                    'desc'   =>
-                        $inputDesc = 'Tag 1 Description',
-                    'status' =>
-                        $active = true,
-                    'active' =>
-                        $inActive = false,
+                    'name'   => $inputName = 'Tag 1',
+                    'desc'   => $inputDesc = 'Tag 1 Description',
+                    'status' => $active = true,
+                    'active' => $inActive = false,
                 ]
             );
 
@@ -141,13 +129,12 @@ describe(description: 'test_tag_controller', tests: function () {
                 ]
             );
 
-        $response = $this->putJson(uri: "tags/{$tag->id}", data:
-            $data = [
-                'name'   => 'Tag 2',
-                'desc'   => 'Tag 2 Description',
-                'status' => 0,
-                'active' => 1,
-            ]);
+        $response = $this->putJson(uri: "tags/{$tag->id}", data: $data = [
+            'name'   => 'Tag 2',
+            'desc'   => 'Tag 2 Description',
+            'status' => 0,
+            'active' => 1,
+        ]);
         $response->assertStatus(status: 200);
         $this->assertDatabaseHas('tags', $data);
     });
