@@ -5,15 +5,15 @@ use Anil\FastApiCrud\Tests\TestClasses\Models\TagModel;
 
 beforeEach(function () {
 });
-describe(description: 'testing_tag_model_data_seeding ', tests: function () {
+describe(description: 'Testing_Tag_Model_Factory', tests: function () {
     it(description: 'can_create_a_tag_using_factory', closure: function () {
         $tag = TagModel::factory()
             ->create(
                 [
                     'name'   => $inputName = 'Tag 1',
                     'desc'   => $inputDesc = 'Tag 1 Description',
-                    'status' => $active = true,
-                    'active' => $inActive = false,
+                    'status' => true,
+                    'active' => false,
                 ],
             );
         expect($tag->name)
@@ -21,17 +21,15 @@ describe(description: 'testing_tag_model_data_seeding ', tests: function () {
             ->and($tag->desc)
             ->toBe(expected: $inputDesc)
             ->and($tag->status)
-            ->toBe(expected: $active)
+            ->toBe(expected: true)
             ->and($tag->active)
-            ->toBe(expected: $inActive);
-
+            ->toBe(expected: false);
         $this->assertDatabaseHas(table: 'tags', data: [
             'name'   => $inputName,
             'desc'   => $inputDesc,
-            'status' => $active,
-            'active' => $inActive,
+            'status' => true,
+            'active' => false,
         ]);
-
         expect($tag->posts)
             ->toBeEmpty()
             ->and($tag->posts()
