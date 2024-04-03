@@ -27,7 +27,7 @@ abstract class TestCase extends OrchestraTestCase
         $this->setUpDatabase($this->app);
 
         Factory::guessFactoryNamesUsing(
-            fn(string $modelName) => 'Anil\FastApiCrud\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'Anil\FastApiCrud\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 
@@ -44,7 +44,7 @@ abstract class TestCase extends OrchestraTestCase
 
         $app['db']->connection()
             ->getSchemaBuilder()
-            ->create('users', function (Blueprint $table) {
+            ->create('users', function(Blueprint $table) {
                 $table->id();
                 $table->string(column: 'name');
                 $table->string(column: 'email');
@@ -63,7 +63,7 @@ abstract class TestCase extends OrchestraTestCase
 
         $app['db']->connection()
             ->getSchemaBuilder()
-            ->create('tags', function (Blueprint $table) {
+            ->create('tags', function(Blueprint $table) {
                 $table->id();
                 $table->string(column: 'name');
                 $table->longText(column: 'desc');
@@ -81,7 +81,7 @@ abstract class TestCase extends OrchestraTestCase
 
         $app['db']->connection()
             ->getSchemaBuilder()
-            ->create('posts', function (Blueprint $table) {
+            ->create('posts', function(Blueprint $table) {
                 $table->id();
                 $table->string(column: 'name');
                 $table->longText(column: 'desc');
@@ -98,7 +98,7 @@ abstract class TestCase extends OrchestraTestCase
 
         $app['db']->connection()
             ->getSchemaBuilder()
-            ->create('post_tag', function (Blueprint $table) {
+            ->create('post_tag', function(Blueprint $table) {
                 $table->id();
                 $table->foreignIdFor(PostModel::class, 'post_id')
                     ->constrained('posts')
