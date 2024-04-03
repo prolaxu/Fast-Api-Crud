@@ -12,10 +12,10 @@ class TagModelFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->unique()->name,
-            'desc' => $this->faker->sentence,
-            'status'      => $this->faker->boolean(),
-            'active'      => $this->faker->boolean,
+            'name'   => $this->faker->unique()->name,
+            'desc'   => $this->faker->sentence,
+            'status' => $this->faker->boolean(),
+            'active' => $this->faker->boolean,
         ];
     }
 }

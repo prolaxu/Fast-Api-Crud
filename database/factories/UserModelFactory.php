@@ -13,10 +13,11 @@ class UserModelFactory extends Factory
     {
         return [
             'name'     => $this->faker->name,
-            'email'    => $this->faker->unique()->safeEmail(),
+            'email'    => $this->faker->unique()
+                ->safeEmail(),
             'password' => $this->faker->password,
-            'status'      => $this->faker->boolean,
-            'active'      => $this->faker->boolean,
+            'status'   => $this->faker->boolean,
+            'active'   => $this->faker->boolean,
 
         ];
     }
