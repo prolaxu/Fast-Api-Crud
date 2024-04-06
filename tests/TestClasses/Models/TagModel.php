@@ -14,13 +14,20 @@ class TagModel extends Model
     use SoftDeletes;
 
     protected $table = 'tags';
-
     protected $fillable = [
         'name',
         'desc',
         'status',
         'active',
     ];
+
+    public function afterCreateProcess(): void
+    {
+        $request = request();
+        if ($request->filled('post_ids')) {
+            $this->posts()->sync($request->input('post_ids'));
+        }
+    }
 
     public function posts(): BelongsToMany
     {
@@ -34,40 +41,29 @@ class TagModel extends Model
         );
     }
 
-    public function afterCreateProcess(): void
-    {
-        $request = request();
-
-        if ($request->filled('post_ids')) {
-            $this->posts()->sync($request->input('post_ids'));
-        }
-    }
-
     public function afterUpdateProcess(): void
     {
         $request = request();
-
         if ($request->filled('post_ids')) {
             $this->posts()->sync($request->input('post_ids'));
         }
     }
 
-    public function scopeQueryFilter(Builder $query,$search):Builder
+    public function scopeQueryFilter(Builder $query, $search): Builder
     {
-
         return $query->likeWhere(
             attributes: ['name', 'desc'],
             searchTerm: $search
         );
     }
 
-    public function scopeActive(Builder $query,bool $active=true):Builder
+    public function scopeActive(Builder $query, bool $active = true): Builder
     {
-        return $query->where(column: 'active',value:  $active);
+        return $query->where(column: 'active', value: $active);
     }
 
-    public function scopeStatus(Builder $query,bool $status=true):Builder
+    public function scopeStatus(Builder $query, bool $status = true): Builder
     {
-        return $query->where(column: 'status',value:  $status);
+        return $query->where(column: 'status', value: $status);
     }
 }
