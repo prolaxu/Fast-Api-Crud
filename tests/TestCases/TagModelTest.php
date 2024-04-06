@@ -142,46 +142,47 @@ describe(description: 'test_tag_controller', tests: function () {
                     'active' => 1,
                 ],
             ]);
-        $response = $this->get(uri: 'tags');
-        $response->assertOk();
-        $response->assertJsonCount(count: 5, key: 'data');
-        $response->assertJsonStructure(
-            [
-                'data'  => [
-                    [
-                        'id',
-                        'name',
-                        'desc',
-                        'status',
-                        'active',
-                        'created_at',
-                        'updated_at',
-                        'deleted_at',
+        $this->get(uri: 'tags')
+            ->assertOk()
+            ->assertJsonCount(count: 5, key: 'data')
+            ->assertJsonStructure(
+                [
+                    'data'  => [
+                        [
+                            'id',
+                            'name',
+                            'desc',
+                            'status',
+                            'active',
+                            'created_at',
+                            'updated_at',
+                            'deleted_at',
+                        ],
                     ],
-                ],
-                'links' => [
-                    'first',
-                    'last',
-                    'prev',
-                    'next',
-                ],
-                'meta'  => [
-                    'current_page',
-                    'from',
-                    'last_page',
-                    'path',
-                    'per_page',
-                    'to',
-                    'total',
-                ],
-            ]
-        );
-        $response = $this->call(method: 'get', uri: 'tags', parameters: [
+                    'links' => [
+                        'first',
+                        'last',
+                        'prev',
+                        'next',
+                    ],
+                    'meta'  => [
+                        'current_page',
+                        'from',
+                        'last_page',
+                        'path',
+                        'per_page',
+                        'to',
+                        'total',
+                    ],
+                ]
+            );
+
+        $this->call(method: 'get', uri: 'tags', parameters: [
             'page'        => 2,
             'rowsPerPage' => 2,
-        ]);
-        $response->assertOk();
-        $response->assertJsonCount(count: 2, key: 'data');
+        ])
+            ->assertOk()
+            ->assertJsonCount(count: 2, key: 'data');
     });
     it(description: 'can_create_a_tag_in_api', closure: function () {
         $tag = TagModel::factory()
