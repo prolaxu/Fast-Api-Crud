@@ -27,6 +27,7 @@ describe(description: 'Testing_Tag_Model_Factory', tests: function () {
             'desc'   => $inputDesc,
             'status' => true,
             'active' => false,
+            'deleted_at' => null,
         ]);
         expect($tag->posts)
             ->toBeEmpty()
@@ -59,12 +60,15 @@ describe(description: 'Testing_Tag_Model_Factory', tests: function () {
             ->and($tag->status)
             ->toBe(expected: $active)
             ->and($tag->active)
-            ->toBe(expected: $inActive);
+            ->toBe(expected: $inActive)
+            ->and($tag->deleted_at)
+            ->toBeNull();
         $this->assertDatabaseHas('tags', [
             'name'   => $inputName,
             'desc'   => $inputDesc,
             'status' => $active,
             'active' => $inActive,
+            'deleted_at' => null,
         ]);
     });
     it(description: 'can_delete_a_tag_using_factory', closure: function () {
@@ -83,6 +87,7 @@ describe(description: 'Testing_Tag_Model_Factory', tests: function () {
             'desc'   => $inputDesc,
             'status' => $active,
             'active' => $inActive,
+            'deleted_at' => null,
         ]);
     });
 });
@@ -101,6 +106,7 @@ describe(description: 'test_tag_controller', tests: function () {
             ...$tag,
             'status' => 1,
             'active' => 0,
+            'deleted_at' => null,
         ]);
     });
     it(description: 'can_update_a_tag', closure: function () {
@@ -120,7 +126,10 @@ describe(description: 'test_tag_controller', tests: function () {
             'active' => 1,
         ]);
         $response->assertStatus(status: 200);
-        $this->assertDatabaseHas('tags', $data);
+        $this->assertDatabaseHas('tags', [
+            ...$data,
+            'deleted_at' => null,
+        ]);
     });
     it(description: 'can_delete_a_tag', closure: function () {
         $tag = TagModel::factory()
@@ -130,25 +139,82 @@ describe(description: 'test_tag_controller', tests: function () {
         $response = $this->deleteJson(uri: "tags/{$tag->id}");
         $response->assertOk();
         $response->assertJsonCount(count: 0, key: 'data');
-        $this->assertDatabaseHas('tags', ['name' => 'Tag 1', 'deleted_at' => now()]);
-        $this->assertDatabaseMissing('post_tag', ['tag_id' => $tag->id]);
+        $this->assertDatabaseHas('tags', [
+            'name' => 'Tag 1',
+            'deleted_at' => now()
+        ]);
+        $this->assertDatabaseMissing('post_tag', [
+            'tag_id' => $tag->id
+        ]);
         $this->assertSame(0, TagModel::query()
             ->count());
     });
     it(description: 'can_get_all_tags', closure: function () {
-        $tags = TagModel::factory()
+        TagModel::factory()
             ->count(count: 5)
             ->create();
         $response = $this->get(uri: 'tags');
-        $response->assertStatus(status: 200);
-        $response->assertJsonCount(5, 'data');
+        $response->assertOk();
+        $response->assertJsonCount(count: 5,key:  'data');
+        $response->assertJsonStructure(
+            [
+                'data' => [
+                    [
+                        'id',
+                        'name',
+                        'desc',
+                        'status',
+                        'active',
+                        'created_at',
+                        'updated_at',
+                        'deleted_at'
+                    ]
+                    ],
+                'links'=> [
+                    'first',
+                    'last',
+                    'prev',
+                    'next',
+                ],
+                'meta'=> [
+                    'current_page',
+                    'from',
+                    'last_page',
+                    'path',
+                    'per_page',
+                    'to',
+                    'total',
+                ]
+            ]
+        );
+        $response->assertJsonStructure(['links', 'meta']);
+        $response = $this->call(method: 'get', uri: 'tags',parameters: [
+            'page' => 2,
+            'rowsPerPage' => 2,
+        ]);
+        $response->assertJsonCount(count: 2,key:  'data');
     });
     it(description: 'can_get_a_tag', closure: function () {
         $tag = TagModel::factory()
             ->create();
-        $response = $this->get(uri: 'tags/'.$tag->id);
+        $response = $this->get(uri: 'tags/' . $tag->id);
         $response->assertStatus(status: 200);
         $response->assertJson(['data' => ['name' => $tag->name]]);
+        $response->assertJsonStructure(
+            [
+                'data' => [
+                    'id',
+                    'name',
+                    'desc',
+                    'status',
+                    'active',
+                    'created_at',
+                    'updated_at',
+                    'deleted_at'
+                ]
+            ]
+        );
+
     });
     it(description: 'can_post_a_tag_with_posts_ids', closure: function () {
         $postIds = PostModel::factory(2)
@@ -166,7 +232,10 @@ describe(description: 'test_tag_controller', tests: function () {
             'post_ids' => $postIds,
         ]);
         $response->assertStatus(status: 201);
-        $this->assertDatabaseHas(table: 'tags', data: $tag);
+        $this->assertDatabaseHas(table: 'tags', data: [
+            ...$tag,
+            'deleted_at' => null,
+        ]);
         $this->assertDatabaseHas(table: 'post_tag', data: ['tag_id' => 1, 'post_id' => 1]);
         $this->assertDatabaseHas(table: 'post_tag', data: ['tag_id' => 1, 'post_id' => 2]);
         $this->assertSame(2, TagModel::find(1)->posts->count());
