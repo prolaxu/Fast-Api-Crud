@@ -176,13 +176,18 @@ describe(description: 'test_tag_controller', tests: function () {
                     ],
                 ]
             );
-
         $this->call(method: 'get', uri: 'tags', parameters: [
             'page'        => 2,
             'rowsPerPage' => 2,
         ])
             ->assertOk()
             ->assertJsonCount(count: 2, key: 'data');
+       $data= $this->call(method: 'get', uri: 'tags', parameters: [
+            'filters' => json_encode([
+                'queryFilter' => 'Tag 1',
+            ]),
+        ]);
+       dd($data->json());
     });
     it(description: 'can_create_a_tag_in_api', closure: function () {
         $tag = TagModel::factory()
