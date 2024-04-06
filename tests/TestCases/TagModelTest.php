@@ -3,8 +3,6 @@
 use Anil\FastApiCrud\Tests\TestClasses\Models\PostModel;
 use Anil\FastApiCrud\Tests\TestClasses\Models\TagModel;
 
-beforeEach(function () {
-});
 describe(description: 'Testing_Tag_Model_Factory', tests: function () {
     it(description: 'can_create_a_tag_using_factory', closure: function () {
         $tag = TagModel::factory()
@@ -79,7 +77,7 @@ describe(description: 'Testing_Tag_Model_Factory', tests: function () {
                     'active' => $inActive = false,
                 ]
             );
-        $tag->delete();
+        $tag->forceDelete();
         $this->assertDatabaseMissing('tags', [
             'name'   => $inputName,
             'desc'   => $inputDesc,
@@ -132,7 +130,7 @@ describe(description: 'test_tag_controller', tests: function () {
         $response = $this->deleteJson(uri: "tags/{$tag->id}");
         $response->assertOk();
         $response->assertJsonCount(count: 0, key: 'data');
-        $this->assertDatabaseMissing('tags', ['name' => 'Tag 1']);
+        $this->assertDatabaseHas('tags', ['name' => 'Tag 1', 'deleted_at' => now()]);
         $this->assertDatabaseMissing('post_tag', ['tag_id' => $tag->id]);
         $this->assertSame(0, TagModel::query()
             ->count());
