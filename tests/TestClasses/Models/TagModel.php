@@ -57,13 +57,13 @@ class TagModel extends Model
         );
     }
 
-    public function scopeActive(Builder $query, bool $active = true): Builder
+    public function scopeActive(Builder $query,  $active = 1): Builder
     {
-        return $query->where(column: 'active', value: $active);
+        return $query->where('active', $active);
     }
 
-    public function scopeStatus(Builder $query, bool $status = true): Builder
+    public function scopeStatus(Builder $query, $status = 1): Builder
     {
-        return $query->where(column: 'status', value: $status);
+        return $query->where('status', $status);
     }
 }

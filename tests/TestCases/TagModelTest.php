@@ -135,16 +135,10 @@ describe(description: 'test_tag_controller', tests: function () {
                     'status' => 0,
                     'active' => 1,
                 ],
-                [
-                    'name'   => 'Tag 5',
-                    'desc'   => 'Tag 5 Description',
-                    'status' => 1,
-                    'active' => 1,
-                ],
             ]);
         $this->get(uri: 'tags')
             ->assertOk()
-            ->assertJsonCount(count: 5, key: 'data')
+            ->assertJsonCount(count: 4, key: 'data')
             ->assertJsonStructure(
                 [
                     'data'  => [
@@ -182,12 +176,73 @@ describe(description: 'test_tag_controller', tests: function () {
         ])
             ->assertOk()
             ->assertJsonCount(count: 2, key: 'data');
-       $data= $this->call(method: 'get', uri: 'tags', parameters: [
-            'filters' => json_encode([
+        $this->getJson(uri: 'tags?filters='.json_encode([
+                'queryFilter' => 'Tag 2',
+                'active'      => 0,
+                'status'      => 0,
+            ]))
+            ->assertOk()
+            ->assertJsonCount(count: 1, key: 'data')
+            ->assertJson([
+                'data' => [
+                    [
+                        "name"   => "Tag 2",
+                        "desc"   => "Tag 2 Description",
+                        "status" => 0,
+                        "active" => 0,
+                    ],
+                ],
+            ]);
+        $this->getJson(uri: 'tags?filters='.json_encode([
                 'queryFilter' => 'Tag 1',
-            ]),
-        ]);
-       dd($data->json());
+                'active'      => 1,
+                'status'      => 1,
+            ]))
+            ->assertOk()
+            ->assertJsonCount(count: 1, key: 'data')
+            ->assertJson([
+                'data' => [
+                    [
+                        "name"   => "Tag 1",
+                        "desc"   => "Tag 1 Description",
+                        "status" => 1,
+                        "active" => 1,
+                    ],
+                ],
+            ]);
+        $this->getJson(uri: 'tags?filters='.json_encode([
+                'queryFilter' => 'Tag',
+            ]))
+            ->assertOk()
+            ->assertJsonCount(count: 4, key: 'data')
+            ->assertJson([
+                'data' => [
+                    [
+                        "name"   => "Tag 4",
+                        "desc"   => "Tag 4 Description",
+                        "status" => 0,
+                        "active" => 1,
+                    ],
+                    [
+                        "name"   => "Tag 3",
+                        "desc"   => "Tag 3 Description",
+                        "status" => 1,
+                        "active" => 0,
+                    ],
+                    [
+                        "name"   => "Tag 2",
+                        "desc"   => "Tag 2 Description",
+                        "status" => 0,
+                        "active" => 0,
+                    ],
+                    [
+                        "name"   => "Tag 1",
+                        "desc"   => "Tag 1 Description",
+                        "status" => 1,
+                        "active" => 1,
+                    ],
+                ],
+            ]);
     });
     it(description: 'can_create_a_tag_in_api', closure: function () {
         $tag = TagModel::factory()
