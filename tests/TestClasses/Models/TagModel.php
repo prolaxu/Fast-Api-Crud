@@ -57,7 +57,7 @@ class TagModel extends Model
         );
     }
 
-    public function scopeActive(Builder $query,  $active = 1): Builder
+    public function scopeActive(Builder $query, $active = 1): Builder
     {
         return $query->where('active', $active);
     }
