@@ -4,7 +4,7 @@ use Anil\FastApiCrud\Tests\TestClasses\Models\PostModel;
 use Anil\FastApiCrud\Tests\TestClasses\Models\TagModel;
 
 describe(description: 'Testing_Tag_Model_Factory', tests: function () {
-    it(description: 'test_tag_model_fillable',closure: function (){
+    it(description: 'test_tag_model_fillable', closure: function () {
         $tag = new TagModel();
         $fillableKeys = array_keys($tag->getFillable());
         sort($fillableKeys);
@@ -39,10 +39,10 @@ describe(description: 'Testing_Tag_Model_Factory', tests: function () {
             ->and($tag->active)
             ->toBe(expected: false);
         $this->assertDatabaseHas(table: 'tags', data: [
-            'name'   => $inputName,
-            'desc'   => $inputDesc,
-            'status' => true,
-            'active' => false,
+            'name'       => $inputName,
+            'desc'       => $inputDesc,
+            'status'     => true,
+            'active'     => false,
             'deleted_at' => null,
         ]);
         expect($tag->posts)
@@ -80,10 +80,10 @@ describe(description: 'Testing_Tag_Model_Factory', tests: function () {
             ->and($tag->deleted_at)
             ->toBeNull();
         $this->assertDatabaseHas('tags', [
-            'name'   => $inputName,
-            'desc'   => $inputDesc,
-            'status' => $active,
-            'active' => $inActive,
+            'name'       => $inputName,
+            'desc'       => $inputDesc,
+            'status'     => $active,
+            'active'     => $inActive,
             'deleted_at' => null,
         ]);
     });
@@ -99,10 +99,10 @@ describe(description: 'Testing_Tag_Model_Factory', tests: function () {
             );
         $tag->forceDelete();
         $this->assertDatabaseMissing('tags', [
-            'name'   => $inputName,
-            'desc'   => $inputDesc,
-            'status' => $active,
-            'active' => $inActive,
+            'name'       => $inputName,
+            'desc'       => $inputDesc,
+            'status'     => $active,
+            'active'     => $inActive,
             'deleted_at' => null,
         ]);
     });
@@ -112,42 +112,42 @@ describe(description: 'test_tag_controller', tests: function () {
         TagModel::factory()
             ->createMany([
                 [
-                    'name' => 'Tag 1',
-                    'desc'=> 'Tag 1 Description',
-                    'status'=>1,
-                    'active'=>1,
+                    'name'   => 'Tag 1',
+                    'desc'   => 'Tag 1 Description',
+                    'status' => 1,
+                    'active' => 1,
                 ],
                 [
-                    'name' => 'Tag 2',
-                    'desc'=> 'Tag 2 Description',
-                    'status'=>0,
-                    'active'=>0,
+                    'name'   => 'Tag 2',
+                    'desc'   => 'Tag 2 Description',
+                    'status' => 0,
+                    'active' => 0,
                 ],
                 [
-                    'name' => 'Tag 3',
-                    'desc'=> 'Tag 3 Description',
-                    'status'=>1,
-                    'active'=>0,
+                    'name'   => 'Tag 3',
+                    'desc'   => 'Tag 3 Description',
+                    'status' => 1,
+                    'active' => 0,
                 ],
                 [
-                    'name' => 'Tag 4',
-                    'desc'=> 'Tag 4 Description',
-                    'status'=>0,
-                    'active'=>1,
+                    'name'   => 'Tag 4',
+                    'desc'   => 'Tag 4 Description',
+                    'status' => 0,
+                    'active' => 1,
                 ],
                 [
-                    'name' => 'Tag 5',
-                    'desc'=> 'Tag 5 Description',
-                    'status'=>1,
-                    'active'=>1,
+                    'name'   => 'Tag 5',
+                    'desc'   => 'Tag 5 Description',
+                    'status' => 1,
+                    'active' => 1,
                 ],
             ]);
         $response = $this->get(uri: 'tags');
         $response->assertOk();
-        $response->assertJsonCount(count: 5,key:  'data');
+        $response->assertJsonCount(count: 5, key: 'data');
         $response->assertJsonStructure(
             [
-                'data' => [
+                'data'  => [
                     [
                         'id',
                         'name',
@@ -156,16 +156,16 @@ describe(description: 'test_tag_controller', tests: function () {
                         'active',
                         'created_at',
                         'updated_at',
-                        'deleted_at'
-                    ]
+                        'deleted_at',
+                    ],
                 ],
-                'links'=> [
+                'links' => [
                     'first',
                     'last',
                     'prev',
                     'next',
                 ],
-                'meta'=> [
+                'meta'  => [
                     'current_page',
                     'from',
                     'last_page',
@@ -173,15 +173,15 @@ describe(description: 'test_tag_controller', tests: function () {
                     'per_page',
                     'to',
                     'total',
-                ]
+                ],
             ]
         );
-        $response = $this->call(method: 'get', uri: 'tags',parameters: [
-            'page' => 2,
+        $response = $this->call(method: 'get', uri: 'tags', parameters: [
+            'page'        => 2,
             'rowsPerPage' => 2,
         ]);
         $response->assertOk();
-        $response->assertJsonCount(count: 2,key:  'data');
+        $response->assertJsonCount(count: 2, key: 'data');
     });
     it(description: 'can_create_a_tag_in_api', closure: function () {
         $tag = TagModel::factory()
@@ -195,8 +195,8 @@ describe(description: 'test_tag_controller', tests: function () {
         $response->assertStatus(status: 201);
         $this->assertDatabaseHas(table: 'tags', data: [
             ...$tag,
-            'status' => 1,
-            'active' => 0,
+            'status'     => 1,
+            'active'     => 0,
             'deleted_at' => null,
         ]);
     });
@@ -231,11 +231,11 @@ describe(description: 'test_tag_controller', tests: function () {
         $response->assertOk();
         $response->assertJsonCount(count: 0, key: 'data');
         $this->assertDatabaseHas('tags', [
-            'name' => 'Tag 1',
-            'deleted_at' => now()
+            'name'       => 'Tag 1',
+            'deleted_at' => now(),
         ]);
         $this->assertDatabaseMissing('post_tag', [
-            'tag_id' => $tag->id
+            'tag_id' => $tag->id,
         ]);
         $this->assertSame(0, TagModel::query()
             ->count());
@@ -243,7 +243,7 @@ describe(description: 'test_tag_controller', tests: function () {
     it(description: 'can_get_a_tag', closure: function () {
         $tag = TagModel::factory()
             ->create();
-        $response = $this->get(uri: 'tags/' . $tag->id);
+        $response = $this->get(uri: 'tags/'.$tag->id);
         $response->assertStatus(status: 200);
         $response->assertJson(['data' => ['name' => $tag->name]]);
         $response->assertJsonStructure(
@@ -256,11 +256,10 @@ describe(description: 'test_tag_controller', tests: function () {
                     'active',
                     'created_at',
                     'updated_at',
-                    'deleted_at'
-                ]
+                    'deleted_at',
+                ],
             ]
         );
-
     });
     it(description: 'can_post_a_tag_with_posts_ids', closure: function () {
         $postIds = PostModel::factory(2)
