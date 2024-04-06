@@ -2,6 +2,7 @@
 
 namespace Anil\FastApiCrud\Tests\TestClasses\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -40,5 +41,33 @@ class TagModel extends Model
         if ($request->filled('post_ids')) {
             $this->posts()->sync($request->input('post_ids'));
         }
+    }
+
+    public function afterUpdateProcess(): void
+    {
+        $request = request();
+
+        if ($request->filled('post_ids')) {
+            $this->posts()->sync($request->input('post_ids'));
+        }
+    }
+
+    public function scopeQueryFilter(Builder $query,$search):Builder
+    {
+
+        return $query->likeWhere(
+            attributes: ['name', 'desc'],
+            searchTerm: $search
+        );
+    }
+
+    public function scopeActive(Builder $query,bool $active=true):Builder
+    {
+        return $query->where(column: 'active',value:  $active);
+    }
+
+    public function scopeStatus(Builder $query,bool $status=true):Builder
+    {
+        return $query->where(column: 'status',value:  $status);
     }
 }
