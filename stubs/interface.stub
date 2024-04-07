@@ -2,11 +2,6 @@
 
 namespace App\Services\Interfaces;
 
-/**
- * Interface {{ class }}Interface
- * @package App\Services\Interfaces
- */
- 
 interface {{ class }}Interface
 {
 

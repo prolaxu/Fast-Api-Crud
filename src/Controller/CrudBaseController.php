@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use ReflectionClass;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class CrudBaseController extends BaseController
 {
@@ -199,7 +201,7 @@ class CrudBaseController extends BaseController
             $model->afterDeleteProcess();
         }
 
-        return $this->success(message: 'Data deleted successfully');
+        return $this->success(message: 'Data deleted successfully', code: ResponseAlias::HTTP_NO_CONTENT);
     }
 
     public function delete()
@@ -245,14 +247,14 @@ class CrudBaseController extends BaseController
             return $this->error($e->getMessage());
         }
 
-        return $this->success(message: 'Data deleted successfully');
+        return $this->success(message: 'Data deleted successfully', code: ResponseAlias::HTTP_NO_CONTENT);
     }
 
     public function success(
         $message = 'Data fetched successfully',
         $data = [],
-        $code = Response::HTTP_OK,
-    ) {
+        $code = ResponseAlias::HTTP_OK,
+    ): JsonResponse {
         return response()->json([
             'message' => $message,
             'data'    => $data,

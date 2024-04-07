@@ -2,10 +2,6 @@
 
 namespace {{ namespace }};
 
-/**
- * Trait {{ class }}
- * @package App\Traits
- */
 
 trait {{ class }}
 {

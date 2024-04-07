@@ -112,7 +112,7 @@ class ApiCrudServiceProvider extends ServiceProvider
             ]);
         });
         Builder::macro('simplePaginates', function (?int $perPage = null, $columns = ['*'], $pageName = 'page', $page = null) {
-            request()->validate(['rowsPerPage' => 'nullable|numeric|gte:0|lte:100000']);
+            request()->validate(['rowsPerPage' => 'nullable|numeric|gte:0|lte:10000']);
             if (request()->filled('rowsPerPage')) {
                 if ((int) request('rowsPerPage') === 0) {
                     $perPage = $this->count();
