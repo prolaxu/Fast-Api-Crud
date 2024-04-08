@@ -440,4 +440,36 @@ describe(description: 'test_tag_controller', tests: function () {
         $this->assertDatabaseMissing('tags', ['id' => 1]);
         $this->assertSame(0, TagModel::query()->count());
     });
+    it(description: 'can_restore_trashed_tag_in_api', closure: function () {
+        $tag = TagModel::factory()
+            ->trashed()
+            ->create();
+       $this->putJson(uri: "tags/{$tag->id}/restore-trashed")
+           ->assertOk();
+        $this->assertDatabaseHas('tags', ['id' => $tag->id, 'deleted_at' => null]);
+    });
+    it(description: 'can_status_change_tag_in_api', closure: function () {
+        $tag = TagModel::factory()
+            ->create([
+                'status'=>1
+            ]);
+        $this->putJson(uri: "tags/{$tag->id}/status-change")
+            ->assertOk();
+        $this->assertDatabaseHas('tags', ['id' => $tag->id, 'status' => 0]);
+        $this->putJson(uri: "tags/{$tag->id}/status-change")
+            ->assertOk();
+        $this->assertDatabaseHas('tags', ['id' => $tag->id, 'status' => 1]);
+    });
+    it(description: 'can_status_change_other_column_tag_in_api', closure: function () {
+        $tag = TagModel::factory()
+            ->create([
+                'active'=>1
+            ]);
+        $this->putJson(uri: "tags/{$tag->id}/status-change/active")
+            ->assertOk();
+        $this->assertDatabaseHas('tags', ['id' => $tag->id, 'active' => 0]);
+        $this->putJson(uri: "tags/{$tag->id}/status-change/active")
+            ->assertOk();
+        $this->assertDatabaseHas('tags', ['id' => $tag->id, 'active' => 1]);
+    });
 });
