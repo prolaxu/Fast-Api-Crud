@@ -123,7 +123,7 @@ abstract class TestCase extends OrchestraTestCase
         $this->userRoutes($router);
     }
 
-    private function postRoutes(Router $router):void
+    private function postRoutes(Router $router): void
     {
         $router->get('posts', [PostController::class, 'index'])
             ->name('posts.index');
@@ -175,7 +175,7 @@ abstract class TestCase extends OrchestraTestCase
             ->name('tags.destroy');
     }
 
-    private function userRoutes(Router $router):void
+    private function userRoutes(Router $router): void
     {
         $router->get('users', [UserController::class, 'index'])
             ->name('users.index');
