@@ -121,7 +121,7 @@ Route::controller(PostController::class)->prefix('posts')->group(function () {
     Route::post('', 'store');
     Route::post('delete', 'delete');
     Route::post('restore-all-trashed', 'restoreAllTrashed');
-    Route::post('force-delete-trashed', 'forceDeleteTrashed');
+    Route::delete('force-delete-trashed/{id}', 'forceDeleteTrashed');
     Route::get('{id}', 'show');
     Route::put('{id}', 'update');
     Route::put('{id}/status-change/{column}', 'changeStatusOtherColumn'); //specific columns change value from 0 to 1 and vice versa
