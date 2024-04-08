@@ -26,8 +26,8 @@ describe(description: 'Testing_Tag_Model_Factory', tests: function () {
                 [
                     'name'   => $inputName = 'Tag 1',
                     'desc'   => $inputDesc = 'Tag 1 Description',
-                    'status' => true,
-                    'active' => false,
+                    'status' => 1,
+                    'active' => 0,
                 ],
             );
         expect($tag->name)
@@ -35,14 +35,14 @@ describe(description: 'Testing_Tag_Model_Factory', tests: function () {
             ->and($tag->desc)
             ->toBe(expected: $inputDesc)
             ->and($tag->status)
-            ->toBe(expected: true)
+            ->toBe(expected: 1)
             ->and($tag->active)
-            ->toBe(expected: false);
+            ->toBe(expected: 0);
         $this->assertDatabaseHas(table: 'tags', data: [
             'name'       => $inputName,
             'desc'       => $inputDesc,
-            'status'     => true,
-            'active'     => false,
+            'status'     => 1,
+            'active'     => 0,
             'deleted_at' => null,
         ]);
         expect($tag->posts)
@@ -93,8 +93,8 @@ describe(description: 'Testing_Tag_Model_Factory', tests: function () {
                 [
                     'name'   => $inputName = 'Tag 1',
                     'desc'   => $inputDesc = 'Tag 1 Description',
-                    'status' => $active = true,
-                    'active' => $inActive = false,
+                    'status' => $active = 1,
+                    'active' => $inActive = 0,
                 ]
             );
         $tag->forceDelete();
@@ -104,6 +104,19 @@ describe(description: 'Testing_Tag_Model_Factory', tests: function () {
             'status'     => $active,
             'active'     => $inActive,
             'deleted_at' => null,
+        ]);
+        $tag = TagModel::factory()->create([
+            'name'   => $inputName1 = 'Tag 1',
+            'desc'   => $inputDesc1 = 'Tag 1 Description',
+            'status' => $active1 = 1,
+            'active' => $inActive1 = 0,
+        ]);
+        $tag->delete();
+        $this->assertSoftDeleted('tags', [
+            'name'   => $inputName1,
+            'desc'   => $inputDesc1,
+            'status' => $active1,
+            'active' => $inActive1,
         ]);
     });
 });
@@ -176,11 +189,13 @@ describe(description: 'test_tag_controller', tests: function () {
         ])
             ->assertOk()
             ->assertJsonCount(count: 2, key: 'data');
-        $this->getJson(uri: 'tags?filters='.json_encode([
+        $this->call(method: 'get', uri: 'tags', parameters: [
+            'filters' => json_encode([
                 'queryFilter' => 'Tag 2',
                 'active'      => 0,
                 'status'      => 0,
-            ]))
+            ]),
+        ])
             ->assertOk()
             ->assertJsonCount(count: 1, key: 'data')
             ->assertJson([
@@ -193,11 +208,13 @@ describe(description: 'test_tag_controller', tests: function () {
                     ],
                 ],
             ]);
-        $this->getJson(uri: 'tags?filters='.json_encode([
+        $this->call(method: 'get', uri: 'tags', parameters: [
+            'filters' => json_encode([
                 'queryFilter' => 'Tag 1',
                 'active'      => 1,
                 'status'      => 1,
-            ]))
+            ]),
+        ])
             ->assertOk()
             ->assertJsonCount(count: 1, key: 'data')
             ->assertJson([
@@ -210,11 +227,13 @@ describe(description: 'test_tag_controller', tests: function () {
                     ],
                 ],
             ]);
-        $this->getJson(uri: 'tags?filters='.json_encode([
+        $this->call(method: 'get', uri: 'tags', parameters: [
+            'filters' => json_encode([
                 'queryFilter' => 'Tag 3',
                 'status'      => 1,
                 'active'      => 0,
-            ]))
+            ]),
+        ])
             ->assertOk()
             ->assertJsonCount(count: 1, key: 'data')
             ->assertJson([
@@ -227,9 +246,11 @@ describe(description: 'test_tag_controller', tests: function () {
                     ],
                 ],
             ]);
-        $this->getJson(uri: 'tags?filters='.json_encode([
+        $this->call(method: 'get', uri: 'tags', parameters: [
+            'filters' => json_encode([
                 'queryFilter' => 'Tag',
-            ]))
+            ]),
+        ])
             ->assertOk()
             ->assertJsonCount(count: 4, key: 'data')
             ->assertJson([
