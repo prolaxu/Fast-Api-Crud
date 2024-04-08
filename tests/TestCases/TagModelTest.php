@@ -435,7 +435,7 @@ describe(description: 'test_tag_controller', tests: function () {
         TagModel::factory(3)
             ->trashed()
             ->create();
-        $this->deleteJson(uri: "tags/force-delete-trashed/1")
+        $this->deleteJson(uri: 'tags/force-delete-trashed/1')
             ->assertNoContent();
         $this->assertDatabaseMissing('tags', ['id' => 1]);
         $this->assertSame(0, TagModel::query()->count());

@@ -471,6 +471,6 @@ class CrudBaseController extends BaseController
             return $this->error($e->getMessage());
         }
 
-        return $this->success(message: 'Data deleted successfully',code: ResponseAlias::HTTP_NO_CONTENT);
+        return $this->success(message: 'Data deleted successfully', code: ResponseAlias::HTTP_NO_CONTENT);
     }
 }
