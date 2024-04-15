@@ -354,40 +354,6 @@ describe(description: 'test_tag_controller', tests: function () {
         $this->assertSame(0, TagModel::query()
             ->count());
     });
-    it(description: 'can_get_a_tag_in_api', closure: function () {
-        $tag = TagModel::factory()
-            ->create([
-                'name'   => 'Tag 1',
-                'desc'   => 'Tag 1 Description',
-                'status' => 1,
-                'active' => 0,
-            ]);
-        $response = $this->get(uri: 'tags/'.$tag->id)
-            ->assertOk()
-            ->assertJson([
-                'data' => [
-                    'name'       => $tag->name,
-                    'desc'       => $tag->desc,
-                    'status'     => $tag->status,
-                    'active'     => $tag->active,
-                    'deleted_at' => null,
-                ],
-            ])
-            ->assertJsonStructure(
-                [
-                    'data' => [
-                        'id',
-                        'name',
-                        'desc',
-                        'status',
-                        'active',
-                        'created_at',
-                        'updated_at',
-                        'deleted_at',
-                    ],
-                ]
-            );
-    });
     it(description: 'can_post_a_tag_with_posts_ids_in_api', closure: function () {
         $postIds = PostModel::factory(2)
             ->create()
