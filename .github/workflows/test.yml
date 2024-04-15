@@ -40,30 +40,17 @@ jobs:
           extensions: intl, zip, pdo, pdo_mysql, pcntl, bcmath, gd, soap, xsl, xml, xmlrpc, mbstring, curl, json, dom, iconv, simplexml, xmlwriter, xmlreader, phar, posix, ctype, tokenizer, session, fileinfo, filter, hash, openssl, pcre, SPL, Reflection, calendar, exif, gettext, sockets, standard, date, libxml, zlib
           coverage: none
           
-      - name: Get Composer Cache Directory and write to file
-        run: |
-          echo "$(composer config cache-files-dir)" > composer-cache-dir.txt
-          echo "COMPOSER_CACHE_DIR=$(cat composer-cache-dir.txt)" >> $GITHUB_ENV
-        
       - name: Cache Composer dependencies
         uses: actions/cache@v4
         with:
           path: |
-            ${{ runner.os }}-composer-cache
+            ~/.composer/cache/files
+            ~/.cache/composer/files
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
-        
-      - name: Setup cache path from file
-        run: |
-          echo "COMPOSER_CACHE_DIR=$(cat composer-cache-dir.txt)" >> $GITHUB_ENV
-        
-      - name: Use cached directory in subsequent steps
-        run: |
-          # Use the COMPOSER_CACHE_DIR environment variable as needed here
-          echo "Cached Composer directory: $COMPOSER_CACHE_DIR"
-                  
-      - name: Install Composer dependencies
+  
+      - name: Install dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - name: Run php pest tests
