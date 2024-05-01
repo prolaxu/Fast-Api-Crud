@@ -27,7 +27,7 @@ jobs:
             php: 8.1
 
 
-    name: running L-${{ matrix.laravel }} on PHP-${{ matrix.php }}
+    name: running L-${{ matrix.php }} on PHP-${{ matrix.laravel }}
 
 
     services:
