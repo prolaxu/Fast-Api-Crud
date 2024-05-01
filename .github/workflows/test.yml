@@ -72,6 +72,11 @@ jobs:
       
       - name: Laravel Version
         run: composer show laravel/framework | grep -E '^(name|versions)'
+      
+      - name: Display PHP version
+        run: |
+          php -v
+          cat composer.json
 
       - name: Run php pest tests
         run: vendor/bin/pest
